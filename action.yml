@@ -1,0 +1,8 @@
+name: Add Reviewed-by trailer
+description: Automatically add a Reviewed-by trailer to Pull Requests
+runs:
+  using: docker
+  image: Dockerfile
+branding:
+  icon: thumbs-up
+  color: green
