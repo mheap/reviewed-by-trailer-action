@@ -1,12 +1,14 @@
 name: Add Reviewed-by trailer
 description: Automatically add a Reviewed-by trailer to Pull Requests
 runs:
-  using: docker
-  image: Dockerfile
+  using: node12
+  main: dist/index.js
 branding:
   icon: thumbs-up
   color: green
 inputs:
   states:
-    description: "Comma delimited list of states to add the trailer on. Can be: approved, changes_requested, commented"
+    description: >-
+      Comma delimited list of states to add the trailer on. Can be: approved,
+      changes_requested, commented
     default: approved
