@@ -18,9 +18,13 @@ jobs:
     steps:
       - name: Debug
         uses: mheap/reviewed-by-trailer-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
           states: approved,changed_requested
 ```
+
+You will need to add a GitHub API token as a secret named `PAT` to use this action. The `GITHUB_TOKEN` available in the environment does not have enough permissions to fetch the data we need to populate the user name and email address in the trailer.
 
 ## Configuration
 
