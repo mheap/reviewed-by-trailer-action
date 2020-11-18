@@ -6,3 +6,7 @@ runs:
 branding:
   icon: thumbs-up
   color: green
+inputs:
+  states:
+    description: "Comma delimited list of states to add the trailer on. Can be: approved, changes_requested, commented"
+    default: approved

@@ -3,6 +3,15 @@ const { Toolkit } = require("actions-toolkit");
 // Run your GitHub Action!
 Toolkit.run(
   async (tools) => {
+    const allowedStates = tools.inputs.states.split(",").map((s) => s.trim());
+    const state = tools.context.payload.review.state;
+
+    if (!allowedStates.includes(state)) {
+      return tools.exit.success(
+        `No reviewer added as with.states did not contain '${state}'`
+      );
+    }
+
     let body = tools.context.payload.pull_request.body;
 
     // Fetch the user
@@ -19,17 +28,12 @@ Toolkit.run(
     // Append if it passed
     body += `\nReviewed-by: ${user.name} &lt;${user.email}>`;
 
-    tools.github.issues.update({
+    await tools.github.issues.update({
       ...tools.context.issue,
       body,
     });
 
-    // Append if it failed + feature is enabled
-    // @TODO
-
-    // Append if neutral + feature is enabled
-    // @TODO
-    tools.exit.success("We did it!");
+    tools.exit.success("Trailer added");
   },
   {
     event: "pull_request_review",
